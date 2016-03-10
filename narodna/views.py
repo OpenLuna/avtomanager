@@ -212,7 +212,7 @@ def checkSecret(request):
 
     if ReplacingBattery.objects.all()[0].status:
         return HttpResponse(0)
-    
+
     if unique_string == '1234567890':
         return HttpResponse(1)
 
