@@ -12,7 +12,7 @@ from django import forms
 
 from narodna.utils import getTimes
 import narodna.emails as emails
-from narodna.models import Driver, Fura, EmailToSend, Options, postedImage
+from narodna.models import Driver, Fura, EmailToSend, Options, postedImage, ReplacingBattery
 
 import datetime
 from pytz import timezone
@@ -315,3 +315,17 @@ def postImage(request):
     uploadedimage.save()
 
     return HttpResponse('OK')
+
+
+def maintenance(request, status_=None):
+    context = {}
+    try:
+        context["replacing_battery"] = ReplacingBattery.objects.all()[0]
+    except:
+        context["replacing_battery"] = ReplacingBattery(status=False)
+        context["replacing_battery"].save()
+    if status_:
+        context["replacing_battery"].status = bool(status_)
+        context["replacing_battery"].save()
+
+    return render_to_response('narodna/maintenance.html', context)

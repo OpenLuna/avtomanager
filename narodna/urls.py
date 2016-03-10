@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^getTime', views.getTime),
     url(r'^getSpots', views.getSpots),
     url(r'^postImage', views.postImage),
+    url(r'^maintenance/$', views.maintenance),
+    url(r'^maintenance(?P<status_>\d+)/$', views.maintenance),
 ]

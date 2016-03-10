@@ -53,3 +53,6 @@ class postedImage(models.Model):
             return 'http://pelji.se/static/uploads/' + self.thetitle
         else:
             return ''
+
+class ReplacingBattery(models.Model):
+    status = models.BooleanField(default=False)
