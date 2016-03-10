@@ -1,0 +1,184 @@
+@import url(https:/fonts.googleapis.com/static/css?family=Open+Sans:400,400italic);
+body {
+    background-color: #f2f2f2;
+}
+
+h1 {
+    font-family: 'ConduitITCStd-Regular';
+    font-weight: 400;
+}
+
+p,
+form {
+    font-family: 'Open Sans';
+}
+
+.jumbo p,
+.pointer {
+    font-family: 'ConduitITCStd-Light';
+    /*    font-weight: 200;*/
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 100;
+}
+
+.popup h1 {
+    font-size: 75px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.closepopup {
+    background-image: url('/static/img/x.png');
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 34px;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+input.form-control {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 17px;
+    border-bottom: 2px solid #95a5a6;
+    border-radius: 0;
+    color: #000000;
+}
+
+input.form-control:focus {
+    border-bottom: 2px solid #77a02e;
+}
+
+input.form-control::-webkit-input-placeholder {
+    color: #95a5a6;
+    font-style: italic;
+    font-family: 'Open Sans';
+}
+
+input.form-control:-moz-placeholder {
+    /* Firefox 18- */
+    color: #95a5a6;
+    font-style: italic;
+    font-family: 'Open Sans';
+}
+
+input.form-control::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #95a5a6;
+    font-style: italic;
+    font-family: 'Open Sans';
+}
+
+input.form-control:-ms-input-placeholder {
+    color: #95a5a6;
+    font-style: italic;
+    font-family: 'Open Sans';
+}
+
+.header {
+    background: #ffffff;
+    height: 51px;
+}
+
+.logo {
+    position: relative;
+    margin: auto;
+    background-image: url('/static/img/logo.png');
+    width: 129px;
+    height: 25px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.jumbo {
+    width: 100%;
+    min-height: 687px;
+    background-image: url('/static/img/ferrari.png');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 34px;
+    padding-left: 10%;
+    padding-right: 10%;
+/*    position: relative;*/
+}
+
+.jumbo h1 {
+    padding-top: 100px;
+    font-size: 75px;
+    margin-top: 0;
+}
+
+.tilia-button {
+    background: #77a02e;
+    border: none;
+    font-size: 26px;
+    line-height: 55px;
+    min-height: 55px;
+    min-width: 225px;
+    border-radius: 3px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: 'ConduitITCStd-Regular';
+    font-weight: 400;
+}
+
+.pointer {
+    background-image: url(/static/img/puscica.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    font-size: 13px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -75px;
+    cursor: pointer;
+}
+
+.odstavek {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* input glow fix */
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    /*    border-color: rgba(126, 239, 104, 0.8);*/
+    /*    border: none;*/
+    box-shadow: none;
+    /*    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);*/
+    outline: 0 none;
+}

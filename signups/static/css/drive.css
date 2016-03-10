@@ -1,0 +1,144 @@
+.jumbo {
+    background: #000000;
+    min-height: 590px;
+    padding-left: 0;
+    padding-right: 0;
+    /*
+    margin-left: -15px;
+    margin-right: -15px;
+*/
+}
+
+.game {
+    width: 760px;
+    height: 550px;
+    position: relative;
+    margin: auto;
+    top: 20px;
+    background: #ffffff;
+}
+
+.game img {
+    width: 760px;
+    height: 550px;
+}
+
+.interface {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: transparent;
+}
+
+.topcenter {
+    position: absolute;
+    width: 96px;
+    left: 50%;
+    margin-left: -48px;
+    margin-top: 50px;
+    color: #ffffff;
+}
+
+.timer {
+    font-size: 38px;
+    font-family: 'ConduitITCStd-Light';
+    width: 100%;
+    text-align: center;
+    border-bottom: 3px dashed #ffffff;
+}
+
+.naprejnazaj {
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.naprej {
+    background-image: url('/static/img/gor.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 25px;
+    height: 20px;
+    position: relative;
+    margin: auto;
+    /*    display: inline-block;*/
+}
+
+.nazaj {
+    background-image: url('/static/img/dol.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 25px;
+    height: 20px;
+    position: relative;
+    margin: auto;
+    /*    display: inline-block;*/
+}
+
+.direction {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-family: 'ConduitITCStd-Light';
+    width: 100%;
+}
+
+.levodesno {
+    background-image: url('/static/img/desno.png');
+    background-position: right top;
+    width: 383px;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    margin-left: -191.5px;
+    height: 125px;
+}
+
+.message {
+    /*    display: none;*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.message-start {
+    background-image: url('/static/img/gif.png');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.message-signup {
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.message-finish {
+    background-color: #000000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.message-finish .share {
+    background-image: url('/static/img/share.png');
+    width: 64px;
+    height: 64px;
+    position: relative;
+    margin: auto;
+    cursor: pointer;
+}

@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'FontAwesome';
+    src: url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/fontawesome-webfont.woff?v=4.0.3) format('woff'), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/fontawesome-webfont.ttf?v=4.0.3) format('truetype'), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "ConduitITCStd-Light";
+    src: url(/static/fonts/conduititcstdlight.woff) format("woff"), url(/static/fonts/conduititcstdlight.ttf) format("truetype"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdlight.svg#ConduitITCStd-Light) format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "ConduitITCStd-Bold";
+    src: url(/static/fonts/conduititcstdbold.woff) format("woff"), url(/static/fonts/conduititcstdbold.ttf) format("truetype"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdbold.svg#ConduitITCStd-Bold) format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "ConduitITCStd-BoldItalic";
+    src: url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdbolditalic.woff) format("woff"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdbolditalic.ttf) format("truetype"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdbolditalic.svg#ConduitITCStd-BoldItalic) format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "ConduitITCStd-LightItalic";
+    src: url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdlightitalic.woff) format("woff"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdlightitalic.ttf) format("truetype"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdlightitalic.svg#ConduitITCStd-LightItalic) format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "ConduitITCStd-Regular";
+    src: url(/static/fonts/conduititcstdregular.woff) format("woff"), url(/static/fonts/conduititcstdregular.ttf) format("truetype"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstdregular.svg#ConduitITCStd-Regular) format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "ConduitITCStd-Italic";
+    src: url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstditalic.woff) format("woff"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstditalic.ttf) format("truetype"), url(//www.zav-tilia.si/sites/all/themes/basetheme/static/fonts/conduititcstditalic.svg#ConduitITCStd-Italic) format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(https://static/fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://static/fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzIjoYw3YTyktCCer_ilOlhE.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Open Sans Italic'), local('OpenSans-Italic'), url(https://static/fonts.gstatic.com/s/opensans/v13/xjAJXh38I15wypJXxuGMBqE8kM4xWR1_1bYURRojRGc.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: 700;
+    src: local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'), url(https://static/fonts.gstatic.com/s/opensans/v13/PRmiXeptR36kaC0GEAetxogd9OEPUCN3AdYW0e8tat4.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}

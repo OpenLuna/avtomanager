@@ -1,0 +1,172 @@
+@import url(https:/fonts.googleapis.com/static/css?family=Open+Sans:400,400italic);
+body {
+    background-color: #f2f2f2;
+}
+
+h1 {
+    font-family: 'ConduitITCStd-Regular';
+    font-weight: 400;
+}
+
+p,
+form {
+    font-family: 'Open Sans';
+}
+
+.tilia-button {
+    background: #77a02e;
+    border: none;
+    font-size: 26px;
+    line-height: 55px;
+    min-height: 55px;
+    min-width: 225px;
+    border-radius: 3px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: 'ConduitITCStd-Regular';
+    font-weight: 400;
+}
+
+.content, .content img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    
+    width: 100%;
+}
+
+.interface {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: transparent;
+}
+
+.topcenter {
+    position: absolute;
+    width: 96px;
+    left: 50%;
+    margin-left: -48px;
+    margin-top: 20px;
+    color: #ffffff;
+}
+
+.timer {
+    font-size: 38px;
+    font-family: 'ConduitITCStd-Light';
+    width: 100%;
+    text-align: center;
+    border-bottom: 3px dashed #ffffff;
+}
+
+.naprejnazaj {
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.naprej {
+    background-image: url('/static/img/naprej-mobile.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 90px;
+    height: 125px;
+    position: absolute;
+    
+    right: 30px;
+    top: 50%;
+    margin-top: -62.5px;
+}
+
+.nazaj {
+    background-image: url('/static/img/nazaj-mobile.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 90px;
+    height: 125px;
+    position: absolute;
+    
+    left: 30px;
+    top: 50%;
+    margin-top: -62.5px;
+}
+
+.direction {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-family: 'ConduitITCStd-Light';
+    width: 100%;
+}
+
+.levodesno {
+    background-image: url('/static/img/desno.png');
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 300px;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    margin-left: -150px;
+    height: 100px;
+}
+
+.message {
+    /*    display: none;*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.message-start {
+    background-image: url('/static/img/gif.png');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.message-signup {
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    
+    text-align: center;
+    padding-top: 60px;
+    color: #ffffff;
+}
+.message-finish {
+    background-color: #000000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    
+    text-align: center;
+    padding-top: 60px;
+    color: #ffffff;
+}
+.message-finish .share {
+    background-image: url('/static/img/share.png');
+    width: 64px;
+    height: 64px;
+    position: relative;
+    margin: auto;
+    cursor: pointer;
+}

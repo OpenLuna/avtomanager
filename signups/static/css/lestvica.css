@@ -1,0 +1,25 @@
+th {
+    background-color: #d7e0c7;
+}
+td {
+    border-color: #99b765 !important;
+    background-color: #f2f2f2;
+}
+tr:hover td {
+    background-color: #ffffff;
+}
+
+h2, table {
+    font-family: 'ConduitITCStd-Regular';
+    font-weight: 400;
+}
+
+h2 {
+    font-size: 35px;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+table {
+    font-size: 18px;
+    border-bottom: 1px solid #99b765;
+}
