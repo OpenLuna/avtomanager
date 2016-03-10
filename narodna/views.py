@@ -172,7 +172,7 @@ def drive(request, driversecret):
     fura = driver.fura_set.all()[0]
 
     #Prevent that same fura opens by more people
-    if not fura.session_id:
+    if fura.session_id == "":
         fura.session_id = request.session._get_or_create_session_key()
         fura.save()
         request.session["id"] = fura.session_id
