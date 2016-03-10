@@ -22,6 +22,7 @@ class Fura(models.Model):
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
     miliseconds = models.IntegerField(null=True, blank=True)
+    session_id = models.CharField(null=True, blank=True)
     
     def __str__(self):
         return datetime.datetime.strftime(self.start_time, '%d.%m. %H:%M')

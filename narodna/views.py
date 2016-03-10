@@ -168,9 +168,20 @@ def drive(request, driversecret):
     time = datetime.datetime.now()
 #    tz = timezone(settings.TIME_ZONE)
 #    time = time.replace(tzinfo = tz)
+    
+    fura = driver.fura_set.all()[0]
 
-    start = driver.fura_set.all()[0].start_time
-    end = driver.fura_set.all()[0].end_time
+    #Prevent that same fura opens by more people
+    if not fura.session_id:
+        fura.session_id = request.session._get_or_create_session_key()
+        fura.save()
+        request.session["id"] = fura.session_id
+    elif fura.session_id != request.session.get("id"):
+        return redirect('/signup')
+
+
+    start = fura.start_time
+    end = fura.end_time
 
     print 'testing time'
 
@@ -198,6 +209,9 @@ def checkSecret(request):
     unique_string = request.POST.get('secret')
 
     driver = Driver.objects.filter(unique_string=unique_string)
+
+    if ReplacingBattery.objects.all()[0].status:
+        return HttpResponse(0)
     
     if unique_string == '1234567890':
         return HttpResponse(1)
