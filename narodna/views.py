@@ -325,7 +325,8 @@ def maintenance(request, status_=None):
         context["replacing_battery"] = ReplacingBattery(status=False)
         context["replacing_battery"].save()
     if status_:
-        context["replacing_battery"].status = bool(status_)
+	print "change replaceing battery status", status_, bool(status_)
+        context["replacing_battery"].status = bool(int(status_))
         context["replacing_battery"].save()
 
     return render_to_response('narodna/maintenance.html', context)
