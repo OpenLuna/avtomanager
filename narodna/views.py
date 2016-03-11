@@ -172,12 +172,27 @@ def drive(request, driversecret):
     fura = driver.fura_set.all()[0]
 
     #Prevent that same fura opens by more people
-    if fura.session_id == "":
+    """if fura.session_id == "":
         fura.session_id = request.session._get_or_create_session_key()
         fura.save()
         request.session["id"] = fura.session_id
     elif fura.session_id != request.session.get("id"):
+        return redirect('/signup')"""
+
+    #Prevent that same fura opens by more people COOKIES
+    cookie_for_set = False
+    if fura.session_id == "":
+        fura.session_id = request.session._get_or_create_session_key()
+        fura.save()
+        cookie_for_set = True
+        #prepare cookie data
+        cookie = {"key": "fura_id","value": fura.session_id,"expires": fura.end_time}
+    elif request.COOKIES.has_key('fura_id'):
+        if request.COOKIES['fura_id'] != fura.session_id:
+            return redirect('/signup')
+    else:
         return redirect('/signup')
+
 
 
     start = fura.start_time
@@ -202,7 +217,10 @@ def drive(request, driversecret):
     c.update(csrf(request))
 
     print 'rendering narodna/drive.html'
-    return render_to_response('narodna/drive.html', c)
+    response = render_to_response('narodna/drive.html', c)
+    if cookie_for_set:
+        response.set_cookie(**cookie)
+    return response
 
 @csrf_exempt
 def checkSecret(request):
