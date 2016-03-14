@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^postImage', views.postImage),
     url(r'^maintenance/$', views.maintenance),
     url(r'^maintenance/(?P<status_>\d+)/$', views.maintenance),
+    url(r'^iAmHere/(?P<driversecret>\w{32})', views.iAmHere),
 ]

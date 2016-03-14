@@ -289,6 +289,21 @@
             return false;
         }
         msieversion();
+
+        $( document ).ready(function() {
+            setInterval(
+                function(){
+                    keep_alive();
+                },
+            5000);
+        });
+        function keep_alive(){
+            var feedback = $.ajax({
+                type: "POST",
+                url: "/iAmHere/{{ driver.unique_string }}",
+            }).success(function(){
+            }).responseText;
+        }
     </script>
 
     <!-- Piwik -->

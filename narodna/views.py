@@ -4,6 +4,7 @@ from django.conf import settings
 from django.shortcuts import render, render_to_response, redirect
 from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
+from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core.mail import EmailMultiAlternatives
@@ -364,3 +365,81 @@ def maintenance(request, status_=None):
         context["replacing_battery"].save()
 
     return render_to_response('narodna/maintenance.html', context)
+
+
+def iAmHere(request, driversecret):
+    driver = Driver.objects.get(unique_string=driversecret)
+    print driver.name, "is stil here"
+    time = datetime.datetime.now() 
+    fura = list(driver.fura_set.all())[-1]
+    if fura.end_time < time:
+        return JsonResponse({"status":"expire"})
+    fura.last_seen = time
+    fura.save()
+    return JsonResponse({"status":"stil here"})
+
+
+def updateWaitList():
+    time = datetime.datetime.now()
+
+    pavzaTime = datetime.timedelta(seconds=settings.PAVZA_TIME)
+    furaTime = datetime.timedelta(seconds=settings.FURA_TIME)
+    queryMinutes = 15
+
+    expire_time = time-datetime.timedelta(seconds=8)
+    nextFuras = Fura.objects.filter(end_time__gt=time, end_time__lt=time+datetime.timedelta(minutes=queryMinutes))
+    while not nextFuras.filter(last_seen__gte=expire_time).order_by("end_time"):
+        queryMinutes += 3
+        nextFuras = Fura.objects.filter(end_time__gt=time, end_time__lt=time+datetime.timedelta(minutes=queryMinutes))
+        if len(nextFuras) == len(Fura.objects.filter(end_time__gt=time)):
+            if nextFuras.filter(last_seen__gte=expire_time).order_by("end_time"):
+                break
+            else:
+                return "ni aktivnih fur"
+
+    expiredFuras = nextFuras.filter(last_seen__lt=expire_time).order_by("end_time")
+    activeFuras = nextFuras.filter(last_seen__gte=expire_time).order_by("end_time")
+    print "expired: ", len(expiredFuras), " active: ", len(activeFuras)
+
+    if expiredFuras:
+        #if first next fura is expired
+        if expiredFuras[0].start_time < activeFuras[0].start_time:
+            print "relist first"
+            #if first expired fura is on drive
+            if expiredFuras[0].start_time < time:
+                #"delete fura :)"
+                expiredFuras[0].start_time = time - datetime.timedelta(seconds=2)
+                expiredFuras[0].end_time = time - datetime.timedelta(seconds=1)
+                expiredFuras[0].save()
+                cTime = datetime.datetime.now() + pavzaTime
+            else:
+                #if waiting for expired fura, make start time after pavza time to first ative fura
+                cTime = datetime.datetime.now() + pavzaTime
+                print "Aktivna prehiteva"
+
+            for aFura in activeFuras:
+                aFura.start_time = cTime
+                aFura.end_time = cTime + furaTime
+                aFura.save()
+                cTime = cTime + pavzaTime + furaTime
+            for eFura in expiredFuras:
+                eFura.start_time = cTime
+                eFura.end_time = cTime + furaTime
+                eFura.save()
+                cTime = cTime + pavzaTime + furaTime
+        else:
+            print "running fura is ok"
+            cTime = activeFuras[0].end_time + pavzaTime
+            for aFura in activeFuras[1:]:
+                aFura.start_time = cTime
+                aFura.end_time = cTime + furaTime
+                aFura.save()
+                cTime = cTime + pavzaTime + furaTime
+            for eFura in expiredFuras:
+                eFura.start_time = cTime
+                eFura.start_time = cTime + furaTime
+                eFura.save()
+                cTime = cTime + pavzaTime + furaTime
+        return 0
+    else:
+        return 1
