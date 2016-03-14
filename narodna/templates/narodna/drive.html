@@ -292,7 +292,7 @@
 
         $( document ).ready(function() {
             $.ajaxSetup({
-                headers: { "X-CSRFToken": getCookie("csrftoken") }
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
             });
             setInterval(
                 function(){
