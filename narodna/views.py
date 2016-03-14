@@ -379,7 +379,7 @@ def iAmHere(request, driversecret):
     return JsonResponse({"status":"stil here"})
 
 
-def updateWaitList():
+def updateWaitList(request):
     time = datetime.datetime.now()
 
     pavzaTime = datetime.timedelta(seconds=settings.PAVZA_TIME)
@@ -395,7 +395,7 @@ def updateWaitList():
             if nextFuras.filter(last_seen__gte=expire_time).order_by("end_time"):
                 break
             else:
-                return "ni aktivnih fur"
+                return JsonResponse({"status":"ni aktivnih fur"})
 
     expiredFuras = nextFuras.filter(last_seen__lt=expire_time).order_by("end_time")
     activeFuras = nextFuras.filter(last_seen__gte=expire_time).order_by("end_time")
@@ -440,6 +440,6 @@ def updateWaitList():
                 eFura.start_time = cTime + furaTime
                 eFura.save()
                 cTime = cTime + pavzaTime + furaTime
-        return 0
+        return JsonResponse({"status":"wait list shuflled :)"})
     else:
-        return 1
+        return JsonResponse({"status":"there is not expired furas"})
