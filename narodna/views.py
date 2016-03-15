@@ -465,6 +465,6 @@ def signup_ajax(request):
             unique_string=secret
         )
         novuser.save()
-        return JsonResponse({"url": "/"+secret})
+        return HttpResponse(secret)
     except:
         return HttpResponse(0)
