@@ -465,6 +465,8 @@ def signup_ajax(request):
             unique_string=secret
         )
         novuser.save()
+        novafura = Fura(driver=novuser, date=times['date'], start_time=times['start'], end_time=times['end'])
+        novafura.save()
         return HttpResponse(secret)
     except:
         return HttpResponse(0)
