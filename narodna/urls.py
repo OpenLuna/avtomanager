@@ -20,5 +20,5 @@ urlpatterns = [
     url(r'^maintenance/(?P<status_>\d+)/$', views.maintenance),
     url(r'^iAmHere/(?P<driversecret>\w{32})', views.iAmHere),
     url(r'^updateWaitList', views.updateWaitList),
-    url(r'^signupajax', views.signup_ajax),
+    url(r'^ajaxsignup', views.signup_ajax),
 ]
