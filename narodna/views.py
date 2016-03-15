@@ -471,14 +471,14 @@ def signup_ajax(request):
     except:
         return HttpResponse(0)
 
-def getPositionInWaitList(request, secret):
+def getPositionInWaitList(request, driversecret):
     try:
         driver = Driver.objects.get(unique_string=driversecret)
         fura = driver.fura_set.all()[0]
         time = datetime.datetime.now()
         nextFuras = Fura.objects.filter(end_time__gt=time).order_by("end_time")
-        position = nextFuras.index(fura)
+        position = list(nextFuras).index(fura)
         time_to = fura.start_time-time
         return JsonResponse({"position":position, "time_to":int(time_to.seconds/60)})
     except:
-        return JsonResponse({"position":0, "time_to":0})
+        return JsonResponse({"position":-1, "time_to":-1})
