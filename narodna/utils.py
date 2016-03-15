@@ -15,7 +15,7 @@ def getTimes():
         if time < zadnjafura[0].end_time:
             time = zadnjafura[0].end_time
         else:
-            time = time + datetime.timedelta(minutes=10)
+            time = time + datetime.timedelta(minutes=settings.PAVZA_TIME)
     else:
         return 0
 
