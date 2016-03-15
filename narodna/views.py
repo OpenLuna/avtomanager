@@ -448,21 +448,23 @@ def updateWaitList(request):
 @require_http_methods(['POST'])
 @csrf_protect
 def signup_ajax(request):
-    name = request.POST.get('name')
-    last_name = request.POST.get('last_name')
-    email = request.POST.get('email')
-    times = getTimes()
+    try:
+        name = request.POST.get('name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        times = getTimes()
 
-    secret = crypto.get_random_string(length=32)
+        secret = crypto.get_random_string(length=32)
 
-    novuser = Driver(
-        name=name,
-        last_name=last_name,
-        email=email,
-        start_time=times['start'],
-        end_time=times['end'],
-        unique_string=secret
-    )
-    novuser.save()
-
-    return JsonResponse({"url": "/"+secret})
+        novuser = Driver(
+            name=name,
+            last_name=last_name,
+            email=email,
+            start_time=times['start'],
+            end_time=times['end'],
+            unique_string=secret
+        )
+        novuser.save()
+        return JsonResponse({"url": "/"+secret})
+    except:
+        return HttpResponse(0)
