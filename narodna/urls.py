@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^iAmHere/(?P<driversecret>\w{32})', views.iAmHere),
     url(r'^updateWaitList', views.updateWaitList),
     url(r'^ajaxsignup', views.signup_ajax),
+    url(r'^myPosition/(?P<driversecret>\w{32})', views.getPositionInWaitList),
 ]
