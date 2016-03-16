@@ -16,6 +16,8 @@ from narodna.utils import getTimes
 import narodna.emails as emails
 from narodna.models import Driver, Fura, EmailToSend, Options, postedImage, ReplacingBattery
 
+import datetime
+import urllib2
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from pytz import timezone
@@ -496,9 +498,6 @@ def getPositionInWaitList(request, driversecret):
 
 def getImage(request):
     url = 'http://pelji.se/sub/test'
-
-    if r.status_code != requests.codes.ok:
-        return HttpResponse(0)
 
     im = postedImage()
 
