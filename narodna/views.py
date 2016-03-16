@@ -16,7 +16,8 @@ from narodna.utils import getTimes
 import narodna.emails as emails
 from narodna.models import Driver, Fura, EmailToSend, Options, postedImage, ReplacingBattery
 
-import datetime
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from pytz import timezone
 
 # Create your views here.
@@ -491,3 +492,25 @@ def getPositionInWaitList(request, driversecret):
         return JsonResponse({"position":position, "time_to":time})
     except:
         return JsonResponse({"position":-1, "time_to":-1})
+
+
+def getImage(request):
+    url = 'http://pelji.se/sub/test'
+
+    if r.status_code != requests.codes.ok:
+        return HttpResponse(0)
+
+    im = postedImage()
+
+    file_name = "iamge_" + str(len(postedImage.objects.all())) + ".jpg"
+    img_temp = NamedTemporaryFile(delete=True)
+    img_temp.write(urllib2.urlopen(url).read())
+    img_temp.flush()
+
+    im.theimage.save(file_name, File(img_temp))
+    im.thetitle = file_name
+    im.save()
+
+    return HttpResponse(image.publicimageurl)
+
+
