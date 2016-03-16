@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core.mail import EmailMultiAlternatives
 from django.utils import crypto
 from django import forms
+from django.views.decorators.cache import never_cache
 
 from narodna.utils import getTimes
 import narodna.emails as emails
@@ -473,6 +474,7 @@ def signup_ajax(request):
     except:
         return HttpResponse(0)
 
+@never_cache
 def getPositionInWaitList(request, driversecret):
     try:
         driver = Driver.objects.get(unique_string=driversecret)
@@ -481,6 +483,11 @@ def getPositionInWaitList(request, driversecret):
         nextFuras = Fura.objects.filter(end_time__gt=time).order_by("end_time")
         position = list(nextFuras).index(fura)
         time_to = fura.start_time-time
-        return JsonResponse({"position":position, "time_to":int(time_to.seconds/60)})
-    except:
+        if position == 0:
+            time = time_to.seconds
+        else:
+            time = int(time_to.seconds/60)
+
+        return JsonResponse({"position":position, "time_to":time}
+)    except:
         return JsonResponse({"position":-1, "time_to":-1})
