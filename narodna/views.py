@@ -488,6 +488,6 @@ def getPositionInWaitList(request, driversecret):
         else:
             time = int(time_to.seconds/60)
 
-        return JsonResponse({"position":position, "time_to":time}
-)    except:
+        return JsonResponse({"position":position, "time_to":time})
+    except:
         return JsonResponse({"position":-1, "time_to":-1})
