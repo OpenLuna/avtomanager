@@ -10,7 +10,6 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core.mail import EmailMultiAlternatives
 from django.utils import crypto
 from django import forms
-from django.views.decorators.cache import never_cache
 
 from narodna.utils import getTimes
 import narodna.emails as emails
@@ -406,15 +405,15 @@ def updateWaitList(request):
         #if first next fura is expired
         if expiredFuras[0].start_time < activeFuras[0].start_time:
             print "relist first"
-	    expired_from = 0
             #if first expired fura is on drive
+            expired_from = 0
             if expiredFuras[0].start_time < time:
                 #"delete fura :)"
                 expiredFuras[0].start_time = time - datetime.timedelta(seconds=2)
                 expiredFuras[0].end_time = time - datetime.timedelta(seconds=1)
                 expiredFuras[0].save()
+                expired_from = 1
                 cTime = datetime.datetime.now() + pavzaTime
-		expired_from = 1
             else:
                 #if waiting for expired fura, make start time after pavza time to first ative fura
                 cTime = datetime.datetime.now() + pavzaTime
@@ -440,7 +439,7 @@ def updateWaitList(request):
                 cTime = cTime + pavzaTime + furaTime
             for eFura in expiredFuras:
                 eFura.start_time = cTime
-                eFura.start_time = cTime + furaTime
+                eFura.end_time = cTime + furaTime
                 eFura.save()
                 cTime = cTime + pavzaTime + furaTime
         return JsonResponse({"status":"wait list shuflled :)"})
@@ -474,8 +473,6 @@ def signup_ajax(request):
     except:
         return HttpResponse(0)
 
-
-@never_cache
 def getPositionInWaitList(request, driversecret):
     try:
         driver = Driver.objects.get(unique_string=driversecret)
@@ -484,10 +481,6 @@ def getPositionInWaitList(request, driversecret):
         nextFuras = Fura.objects.filter(end_time__gt=time).order_by("end_time")
         position = list(nextFuras).index(fura)
         time_to = fura.start_time-time
-	if position == 0:
-	    time = time_to.seconds
-	else:
-	    time = int(time_to.seconds/60)
-        return JsonResponse({"position":position, "time_to":time})
+        return JsonResponse({"position":position, "time_to":int(time_to.seconds/60)})
     except:
         return JsonResponse({"position":-1, "time_to":-1})
