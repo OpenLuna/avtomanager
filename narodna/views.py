@@ -529,7 +529,7 @@ def getImage(request):
     im.thetitle = file_name
     im.save()
 
-    return HttpResponse(im.publicimageurl())
+    return JsonResponse({"url": im.publicimageurl()})
 
 
 def getWaitList(request):
