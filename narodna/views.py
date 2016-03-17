@@ -524,3 +524,9 @@ def getImage(request):
     im.save()
 
     return HttpResponse(im.publicimageurl())
+
+
+def getWaitList(request):
+    time = datetime.datetime.now()
+    nextFuras = Fura.objects.filter(end_time__gt=time).order_by("end_time")
+    return render_to_response('narodna/waitlist.html', {"waitlist":nextFuras})
