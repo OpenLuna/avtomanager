@@ -11,13 +11,17 @@ from django.core.mail import EmailMultiAlternatives
 from django.utils import crypto
 from django import forms
 from django.views.decorators.cache import never_cache
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from narodna.utils import getTimes
 import narodna.emails as emails
 from narodna.models import Driver, Fura, EmailToSend, Options, postedImage, ReplacingBattery
 
+import StringIO
 import datetime
-import urllib2
+import urllib
+import io
+from PIL import Image
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from pytz import timezone
@@ -497,19 +501,26 @@ def getPositionInWaitList(request, driversecret):
 
 
 def getImage(request):
-    url = 'http://pelji.se/sub/test'
+    stream=urllib.urlopen('http://pelji.se/sub/test')
+    bytes=''
+    while True:
+        bytes+=stream.read(1024)
+        a = bytes.find('\xff\xd8')
+        b = bytes.find('\xff\xd9')
+        if a!=-1 and b!=-1:
+            jpg = bytes[a:b+2]
+            bytes= bytes[b+2:]
+            break
 
+    stream = io.BytesIO(jpg)
+    img = Image.open(stream)
+    file_name = "image_" + str(len(postedImage.objects.all())) + ".jpg"
+    image_io = StringIO.StringIO()
+    img.save(image_io, format='JPEG')
+    image_file = InMemoryUploadedFile(image_io, None, file_name, 'image/jpeg', image_io.len, None)
     im = postedImage()
-
-    file_name = "iamge_" + str(len(postedImage.objects.all())) + ".jpg"
-    img_temp = NamedTemporaryFile(delete=True)
-    img_temp.write(urllib2.urlopen(url).read())
-    img_temp.flush()
-
-    im.theimage.save(file_name, File(img_temp))
+    im.theimage.save(file_name, image_file)
     im.thetitle = file_name
     im.save()
 
-    return HttpResponse(image.publicimageurl)
-
-
+    return HttpResponse(im.publicimageurl())
