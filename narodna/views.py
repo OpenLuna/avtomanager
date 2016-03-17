@@ -21,6 +21,7 @@ import StringIO
 import datetime
 import urllib
 import io
+import cStringIO
 from PIL import Image
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -502,6 +503,7 @@ def getPositionInWaitList(request, driversecret):
 
 def getImage(request):
     stream=urllib.urlopen('http://pelji.se/sub/test')
+    narodna = cStringIO.StringIO(urllib.urlopen("http://pelji.se/static/ng/img/logo.png").read())
     bytes=''
     while True:
         bytes+=stream.read(1024)
@@ -514,6 +516,10 @@ def getImage(request):
 
     stream = io.BytesIO(jpg)
     img = Image.open(stream)
+    over = Image.open(narodna)
+    img.paste(foreground, (200, 100), over)
+
+
     file_name = "image_" + str(len(postedImage.objects.all())) + ".jpg"
     image_io = StringIO.StringIO()
     img.save(image_io, format='JPEG')
