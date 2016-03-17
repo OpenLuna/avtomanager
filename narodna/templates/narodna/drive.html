@@ -307,6 +307,33 @@
             }).success(function(){
             }).responseText;
         }
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '290563391104397',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+        function postImage1(url) {
+          var wallPost = {
+            message: "Test to post a photo",
+            picture: url
+          };
+          FB.api('/me/feed', 'post', wallPost , function(response) {
+            if (!response || response.error) {
+              alert('Failure! ' + response.status + ' You may logout once and try again');
+            } else {
+              alert('Success! Post ID: ' + response);
+            }
+          });
+        }
+        function getImage(){
+            $.get( "http://pelji.se/getImage", function( data ) {
+                console.log(data.url)
+                postImage1(data.url)
+            });
+        }
     </script>
 
     <!-- Piwik -->
