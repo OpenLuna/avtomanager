@@ -502,8 +502,8 @@ def getPositionInWaitList(request, driversecret):
 
 
 def getImage(request):
-    stream=urllib.urlopen('http://pelji.se/sub/test')
-    narodna = cStringIO.StringIO(urllib.urlopen("http://pelji.se/static/ng/img/logo.png").read())
+    stream=urllib.urlopen('http://pelji.se/sub/testis')
+    narodna = cStringIO.StringIO(urllib.urlopen("http://pelji.se/static/ng/img/stempl.png").read())
     bytes=''
     while True:
         bytes+=stream.read(1024)
@@ -517,7 +517,8 @@ def getImage(request):
     stream = io.BytesIO(jpg)
     img = Image.open(stream)
     over = Image.open(narodna)
-    img.paste(foreground, (200, 100), over)
+    #over = over.resize((int(over.width/2), int(over.height/2)))
+    img.paste(over, (img.width-over.width, img.height-over.height), over)
 
 
     file_name = "image_" + str(len(postedImage.objects.all())) + ".jpg"

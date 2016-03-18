@@ -299,6 +299,13 @@
                     keep_alive();
                 },
             3000);
+	$.ajaxSetup({ cache: true });
+  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId: '290563391104397',
+      version: 'v2.5' // or v2.0, v2.1, v2.2, v2.3
+    });     
+  });
         });
         function keep_alive(){
             var feedback = $.ajax({
@@ -308,13 +315,6 @@
             }).responseText;
         }
 
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId: '290563391104397',
-                xfbml      : true,
-                version    : 'v2.5'
-            });
-        };
         function postImage1(url) {
           var wallPost = {
             message: "Test to post a photo",
@@ -330,9 +330,9 @@
         }
         function getImage(){
             $.get( "http://pelji.se/getImage", function( data ) {
-                console.log(data.url)
-                postImage1(data.url)
-            });
+                url = 'https://www.facebook.com/dialog/share?app_id=290563391104397&display=popup&href=' + encodeURIComponent(data.url) + '&redirect_uri=' + encodeURIComponent("http://pelji.se/") + '&ref=responsive';
+        	window.open(url, '_blank');
+	    });
         }
     </script>
 
