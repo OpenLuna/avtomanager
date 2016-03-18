@@ -201,9 +201,9 @@ def drive(request, driversecret):
     elif request.COOKIES.has_key('fura_id'):
         print "cookie je"
         if request.COOKIES['fura_id'] != fura.session_id:
-            return redirect('/signup')
+            return redirect('/')
     else:
-        return redirect('/signup')
+        return redirect('/')
 
 
 
