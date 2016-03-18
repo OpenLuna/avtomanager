@@ -10,21 +10,12 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core.mail import EmailMultiAlternatives
 from django.utils import crypto
 from django import forms
-from django.views.decorators.cache import never_cache
-from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from narodna.utils import getTimes
 import narodna.emails as emails
 from narodna.models import Driver, Fura, EmailToSend, Options, postedImage, ReplacingBattery
 
-import StringIO
 import datetime
-import urllib
-import io
-import cStringIO
-from PIL import Image
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
 from pytz import timezone
 
 # Create your views here.
@@ -415,13 +406,11 @@ def updateWaitList(request):
         if expiredFuras[0].start_time < activeFuras[0].start_time:
             print "relist first"
             #if first expired fura is on drive
-            expired_from = 0
             if expiredFuras[0].start_time < time:
                 #"delete fura :)"
                 expiredFuras[0].start_time = time - datetime.timedelta(seconds=2)
                 expiredFuras[0].end_time = time - datetime.timedelta(seconds=1)
                 expiredFuras[0].save()
-                expired_from = 1
                 cTime = datetime.datetime.now() + pavzaTime
             else:
                 #if waiting for expired fura, make start time after pavza time to first ative fura
@@ -433,7 +422,7 @@ def updateWaitList(request):
                 aFura.end_time = cTime + furaTime
                 aFura.save()
                 cTime = cTime + pavzaTime + furaTime
-            for eFura in expiredFuras[expired_from:]:
+            for eFura in expiredFuras:
                 eFura.start_time = cTime
                 eFura.end_time = cTime + furaTime
                 eFura.save()
@@ -448,7 +437,7 @@ def updateWaitList(request):
                 cTime = cTime + pavzaTime + furaTime
             for eFura in expiredFuras:
                 eFura.start_time = cTime
-                eFura.end_time = cTime + furaTime
+                eFura.start_time = cTime + furaTime
                 eFura.save()
                 cTime = cTime + pavzaTime + furaTime
         return JsonResponse({"status":"wait list shuflled :)"})
@@ -482,7 +471,8 @@ def signup_ajax(request):
     except:
         return HttpResponse(0)
 
-@never_cache
+from django.views.decorators.cache import never_cache
+
 def getPositionInWaitList(request, driversecret):
     try:
         driver = Driver.objects.get(unique_string=driversecret)
@@ -491,51 +481,6 @@ def getPositionInWaitList(request, driversecret):
         nextFuras = Fura.objects.filter(end_time__gt=time).order_by("end_time")
         position = list(nextFuras).index(fura)
         time_to = fura.start_time-time
-        if position == 0:
-            time = time_to.seconds
-	    if time > 100:
-		time = 0
-        else:
-            time = int(time_to.seconds/60)
-
-        return JsonResponse({"position":position, "time_to":time})
+        return JsonResponse({"position":position, "time_to":int(time_to.seconds/60)})
     except:
         return JsonResponse({"position":-1, "time_to":-1})
-
-
-def getImage(request):
-    stream=urllib.urlopen('http://pelji.se/sub/testis')
-    narodna = cStringIO.StringIO(urllib.urlopen("http://pelji.se/static/ng/img/stempl.png").read())
-    bytes=''
-    while True:
-        bytes+=stream.read(1024)
-        a = bytes.find('\xff\xd8')
-        b = bytes.find('\xff\xd9')
-        if a!=-1 and b!=-1:
-            jpg = bytes[a:b+2]
-            bytes= bytes[b+2:]
-            break
-
-    stream = io.BytesIO(jpg)
-    img = Image.open(stream)
-    over = Image.open(narodna)
-    #over = over.resize((int(over.width/2), int(over.height/2)))
-    img.paste(over, (img.width-over.width, img.height-over.height), over)
-
-
-    file_name = "image_" + str(len(postedImage.objects.all())) + ".jpg"
-    image_io = StringIO.StringIO()
-    img.save(image_io, format='JPEG')
-    image_file = InMemoryUploadedFile(image_io, None, file_name, 'image/jpeg', image_io.len, None)
-    im = postedImage()
-    im.theimage.save(file_name, image_file)
-    im.thetitle = file_name
-    im.save()
-
-    return JsonResponse({"url": im.publicimageurl()})
-
-
-def getWaitList(request):
-    time = datetime.datetime.now()
-    nextFuras = Fura.objects.filter(end_time__gt=time).order_by("end_time")
-    return render_to_response('narodna/waitlist.html', {"waitlist":nextFuras})
