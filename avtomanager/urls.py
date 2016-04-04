@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-import signups.urls, narodna.urls
+import signups.urls, narodna.urls, luna.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(narodna.urls)),
     url(r'^tilia/', include(signups.urls)),
+    url(r'^luna/', include(luna.urls)),
 ]
