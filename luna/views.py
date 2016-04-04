@@ -459,27 +459,27 @@ def updateWaitList(request):
 @require_http_methods(['POST'])
 @csrf_protect
 def signup_ajax(request):
-    try:
-        name = request.POST.get('name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        times = getTimes()
+    name = request.POST.get('name')
+    last_name = request.POST.get('last_name')
+    email = request.POST.get('email')
+    times = getTimes()
 
-        secret = crypto.get_random_string(length=32)
+    secret = crypto.get_random_string(length=32)
 
-        novuser = Driver(
-            name=name,
-            last_name=last_name,
-            email=email,
-            start_time=times['start'],
-            end_time=times['end'],
-            unique_string=secret
-        )
-        novuser.save()
-        novafura = Fura(driver=novuser, date=times['date'], start_time=times['start'], end_time=times['end'])
-        novafura.save()
+    novuser = Driver(
+        name=name,
+        last_name=last_name,
+        email=email,
+        start_time=times['start'],
+        end_time=times['end'],
+        unique_string=secret
+    )
+    novuser.save()
+    novafura = Fura(driver=novuser, date=times['date'], start_time=times['start'], end_time=times['end'])
+    novafura.save()
+    if novafura:
         return HttpResponse(secret)
-    except:
+    else:
         return HttpResponse(0)
 
 @never_cache
