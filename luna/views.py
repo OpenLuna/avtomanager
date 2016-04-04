@@ -523,7 +523,7 @@ def getImage(request):
     img.paste(over, (img.width-over.width, img.height-over.height), over)
 
 
-    file_name = "image_" + str(len(postedImage.objects.all())) + ".jpg"
+    file_name = "image_luna_" + str(len(postedImage.objects.all())) + ".jpg"
     image_io = StringIO.StringIO()
     img.save(image_io, format='JPEG')
     image_file = InMemoryUploadedFile(image_io, None, file_name, 'image/jpeg', image_io.len, None)
