@@ -13,9 +13,9 @@ from django import forms
 from django.views.decorators.cache import never_cache
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from narodna.utils import getTimes
-import narodna.emails as emails
-from narodna.models import Driver, Fura, EmailToSend, Options, postedImage, ReplacingBattery
+from luna.utils import getTimes
+import luna.emails as emails
+from luna.models import Driver, Fura, EmailToSend, Options, postedImage, ReplacingBattery
 
 import StringIO
 import datetime
@@ -133,7 +133,7 @@ def index(request):
     c = {'spots': spots, 'spaceleft': spaceleft}
     c.update(csrf(request))
 
-    return render_to_response('narodna/signup.html', c)
+    return render_to_response('luna/signup.html', c)
 
 def stream(request):
 
@@ -152,7 +152,7 @@ def stream(request):
     c = {'fura': fura, 'isactive': isactive}
     c.update(csrf(request))
 
-    return render_to_response('narodna/stream.html', c)
+    return render_to_response('luna/stream.html', c)
 
 def drive(request, driversecret):
 
@@ -228,8 +228,8 @@ def drive(request, driversecret):
 
     c.update(csrf(request))
 
-    print 'rendering narodna/drive.html'
-    response = render_to_response('narodna/drive.html', c)
+    print 'rendering luna/drive.html'
+    response = render_to_response('luna/drive.html', c)
     if cookie_for_set:
         response.set_cookie(**cookie)
     return response
@@ -296,7 +296,7 @@ def sendEmailReminder(request):
 def testDrive(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('narodna/drive2.html', c)
+    return render_to_response('luna/drive2.html', c)
 
 def listDriversandFuras(request):
     furas = Fura.objects.all().order_by('start_time').reverse();
@@ -373,7 +373,7 @@ def maintenance(request, status_=None):
         context["replacing_battery"].status = bool(int(status_))
         context["replacing_battery"].save()
 
-    return render_to_response('narodna/maintenance.html', context)
+    return render_to_response('luna/maintenance.html', context)
 
 
 def iAmHere(request, driversecret):
@@ -538,4 +538,4 @@ def getImage(request):
 def getWaitList(request):
     time = datetime.datetime.now()
     nextFuras = Fura.objects.filter(end_time__gt=time).order_by("end_time")
-    return render_to_response('narodna/waitlist.html', {"waitlist":nextFuras})
+    return render_to_response('luna/waitlist.html', {"waitlist":nextFuras})
